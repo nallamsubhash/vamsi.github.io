@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VELVEX — Live Vibrant. Bold. Smart.</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --gold: #C6A15B;
+  --gold-light: #E6D2A2;
+  --gold-dark: #9a7a3e;
+  --maroon: #7A2238;
+  --maroon-light: #9B3350;
+  --maroon-mid: #B85070;
+  --blush: #C4748A;
+  --rose: #D9A0AD;
+  --cream: #F8F0EC;
+  --warm-white: #FDF8F5;
+  --text-dark: #2A1018;
+  --text-mid: #3D0F1E;
+}
+html { scroll-behavior: smooth; }
+body { font-family: "Montserrat", sans-serif; background: var(--cream); color: var(--text-dark); overflow-x: hidden; cursor: none; }
+
+/* CURSOR */
+#cursor { position: fixed; top: 0; left: 0; width: 10px; height: 10px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); transition: transform 0.15s ease, background 0.3s; mix-blend-mode: multiply; }
+#cursor-ring { position: fixed; top: 0; left: 0; width: 38px; height: 38px; border: 1.5px solid var(--gold); border-radius: 50%; pointer-events: none; z-index: 99998; transform: translate(-50%,-50%); transition: width 0.3s ease, height 0.3s ease, opacity 0.3s; opacity: 0.55; }
+.cursor-hover #cursor { transform: translate(-50%,-50%) scale(2.8); background: var(--maroon); }
+.cursor-hover #cursor-ring { width: 64px; height: 64px; opacity: 0.25; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 28px 60px; display: flex; align-items: center; justify-content: center; transition: background 0.5s, padding 0.4s, box-shadow 0.5s; }
+nav.scrolled { background: rgba(90,18,32,0.97); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 14px 60px; box-shadow: 0 4px 40px rgba(90,18,32,0.4); border-radius: 0 0 16px 16px; }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; }
+.nav-links { display: flex; gap: 44px; }
+.nav-links a { font-family: "Montserrat",sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3.5px; text-transform: uppercase; color: rgba(255,255,255,0.95); text-decoration: none; position: relative; padding-bottom: 4px; transition: color 0.3s; }
+.nav-links a::after { content: ""; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.4s ease; }
+.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover::after { width: 100%; }
+.nav-logo { height: 50px; width: auto; filter: drop-shadow(0 2px 14px rgba(198,161,91,0.5)); transition: transform 0.3s, filter 0.3s; }
+.nav-logo:hover { transform: scale(1.06); filter: drop-shadow(0 4px 24px rgba(198,161,91,0.8)); }
+
+/* HERO */
+#hero { position: relative; width: 100vw; height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+#hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(90,18,32,0.5) 0%, rgba(30,5,12,0.32) 50%, rgba(90,18,32,0.6) 100%); z-index: 1; }
+.hero-content { position: relative; z-index: 2; text-align: center; opacity: 0; animation: heroFadeIn 2s ease 0.9s forwards; }
+@keyframes heroFadeIn { from { opacity:0; transform:translateY(32px); } to { opacity:1; transform:translateY(0); } }
+.hero-logo { height: 115px; width: auto; margin-bottom: 24px; filter: drop-shadow(0 4px 32px rgba(198,161,91,0.65)); animation: heroFloat 7s ease-in-out infinite; }
+@keyframes heroFloat { 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-10px);} }
+.hero-tagline { font-family: "Cormorant Garamond",serif; font-size: clamp(13px,1.8vw,17px); font-weight: 400; letter-spacing: 7px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 22px; }
+.hero-headline { font-family: "Cormorant Garamond",serif; font-size: clamp(50px,7vw,92px); font-weight: 300; color: white; line-height: 1.05; margin-bottom: 38px; text-shadow: 0 4px 30px rgba(0,0,0,0.25); }
+.hero-headline em { font-style: italic; color: var(--gold-light); }
+.hero-pills { display: flex; gap: 0; justify-content: center; margin-bottom: 52px; }
+.hero-pill { font-size: 9px; letter-spacing: 5px; text-transform: uppercase; color: var(--gold-light); font-family: "Montserrat",sans-serif; font-weight: 400; padding: 0 18px; border-right: 1px solid rgba(198,161,91,0.4); }
+.hero-pill:last-child { border-right: none; }
+.hero-cta { display: inline-flex; align-items: center; gap: 14px; font-family: "Montserrat",sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; text-decoration: none; color: var(--text-dark); background: linear-gradient(135deg, var(--gold-light), var(--gold)); padding: 18px 52px; position: relative; overflow: hidden; transition: transform 0.4s, box-shadow 0.4s; clip-path: polygon(14px 0%, 100% 0%, calc(100% - 14px) 100%, 0% 100%); border-radius: 4px; }
+.hero-cta::before { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); opacity: 0; transition: opacity 0.4s; }
+.hero-cta:hover::before { opacity: 1; }
+.hero-cta:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(198,161,91,0.55); }
+.hero-cta span { position: relative; z-index: 1; }
+.hero-scroll-hint { position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 10px; color: rgba(255,255,255,0.55); font-size: 8px; letter-spacing: 5px; text-transform: uppercase; font-family: "Montserrat",sans-serif; animation: heroFadeIn 2s ease 2.2s both; }
+.scroll-line { width: 1px; height: 52px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollPulse 2.2s ease-in-out infinite; }
+@keyframes scrollPulse { 0%,100%{ opacity:0.3; transform:scaleY(1); } 50%{ opacity:1; transform:scaleY(1.15); } }
+
+/* ABOUT */
+#about { position: relative; height: 300vh; }
+.about-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.about-bg { position: absolute; inset: 0; transition: background 1.1s ease; }
+.about-bg.p0 { background: linear-gradient(135deg, var(--cream) 0%, #EDD0D8 100%); }
+.about-bg.p1 { background: linear-gradient(135deg, #C8607A 0%, var(--maroon) 100%); }
+.about-bg.p2 { background: linear-gradient(135deg, var(--maroon) 0%, #1E0610 100%); }
+.about-texture { position: absolute; inset: 0; opacity: 0.05; background-image: repeating-linear-gradient(45deg, var(--gold) 0, var(--gold) 1px, transparent 0, transparent 50%); background-size: 20px 20px; }
+.about-vline { position: absolute; left: 50%; top: 10%; bottom: 10%; width: 1px; background: linear-gradient(to bottom, transparent, rgba(198,161,91,0.4), transparent); }
+.about-phase { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.9s ease; pointer-events: none; padding: 60px; }
+.about-phase.active { opacity: 1; pointer-events: auto; }
+.about-eyebrow { font-family: "Montserrat",sans-serif; font-size: 9px; letter-spacing: 7px; text-transform: uppercase; color: var(--gold); margin-bottom: 22px; display: block; }
+.about-headline { font-family: "Cormorant Garamond",serif; font-size: clamp(40px,5.5vw,70px); font-weight: 300; line-height: 1.1; margin-bottom: 28px; }
+.about-body { font-family: "Montserrat",sans-serif; font-size: 14.5px; line-height: 1.95; font-weight: 400; max-width: 580px; margin: 0 auto 36px; letter-spacing: 0.1px; }
+.about-tags { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.about-tag { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; border: 1px solid currentColor; padding: 8px 20px; font-family: "Montserrat",sans-serif; font-weight: 500; transition: all 0.3s; border-radius: 6px; }
+.about-tag:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+.phase-dots { position: absolute; bottom: 44px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 3; }
+.pdot { width: 6px; height: 6px; border-radius: 50%; border: 1px solid var(--gold); transition: all 0.4s; }
+.pdot.active { background: var(--gold); transform: scale(1.4); }
+
+/* DIVIDER */
+.sec-div { display: flex; align-items: center; justify-content: center; padding: 50px 0 30px; gap: 18px; }
+.dline { height: 1px; width: 100px; background: linear-gradient(to right, transparent, var(--gold)); }
+.dline.r { background: linear-gradient(to left, transparent, var(--gold)); }
+.ddiam { width: 7px; height: 7px; background: var(--gold); transform: rotate(45deg); }
+
+/* PRODUCTS */
+#products { background: var(--warm-white); padding: 0 0 120px; }
+.prod-header { text-align: center; padding: 90px 60px 50px; }
+.sec-label { display: block; font-family: "Montserrat",sans-serif; font-size: 9px; letter-spacing: 6px; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+.sec-title { font-family: "Cormorant Garamond",serif; font-size: clamp(38px,5vw,66px); font-weight: 300; line-height: 1.1; color: var(--text-dark); }
+.sec-title em { font-style: italic; color: var(--maroon); }
+.sec-sub { font-family: "Montserrat",sans-serif; font-size: 14px; line-height: 1.85; font-weight: 400; color: var(--text-mid); max-width: 580px; margin: 22px auto 0; }
+
+/* TABS */
+.ptabs { display: flex; justify-content: center; margin-bottom: 60px; border-bottom: 1px solid rgba(198,161,91,0.2); padding: 0 60px; }
+.ptab { font-family: "Montserrat",sans-serif; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; font-weight: 600; padding: 16px 44px; border: none; background: none; cursor: none; color: var(--text-mid); position: relative; transition: color 0.3s; }
+.ptab::after { content: ""; position: absolute; bottom: -1px; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transition: transform 0.4s ease; }
+.ptab.on { color: var(--maroon); }
+.ptab.on::after { transform: scaleX(1); }
+.ptab:hover { color: var(--maroon); }
+.tcontent { display: none; }
+.tcontent.on { display: block; }
+
+/* CONDOMS */
+.cond-intro { text-align: center; margin-bottom: 50px; padding: 0 60px; }
+.cond-label { font-family: "Cormorant Garamond",serif; font-size: 14px; letter-spacing: 5px; text-transform: uppercase; color: var(--maroon); margin-bottom: 16px; display: block; }
+.cond-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; max-width: 1320px; margin: 0 auto; padding: 0 40px; }
+.ccard { position: relative; padding: 36px 20px 48px; text-align: center; cursor: none; transition: all 0.5s cubic-bezier(.23,1,.32,1); border-right: 1px solid rgba(198,161,91,0.12); overflow: hidden; background: white; border-radius: 12px; }
+.ccard:last-child { border-right: none; } /* gap handles spacing */
+.ccard::before { content: ""; position: absolute; inset: 0; background: linear-gradient(145deg, var(--maroon) 0%, #1E0610 100%); opacity: 0; transition: opacity 0.5s; }
+.ccard:hover { transform: translateY(-10px); z-index: 2; box-shadow: 0 32px 80px rgba(90,18,32,0.28); }
+.ccard:hover::before { opacity: 1; }
+.ccard:hover .cname, .ccard:hover .cdesc { color: white; }
+.ccard:hover .ctag { background: rgba(255,255,255,0.12); color: var(--gold-light); border-color: transparent; }
+.cimg-wrap { position: relative; z-index: 1; height: 210px; display: flex; align-items: center; justify-content: center; margin-bottom: 22px; }
+.cimg { max-height: 190px; max-width: 150px; object-fit: contain; transition: transform 0.5s cubic-bezier(.23,1,.32,1), filter 0.4s; filter: drop-shadow(0 8px 20px rgba(90,18,32,0.18)); }
+.ccard:hover .cimg { transform: scale(1.14) translateY(-10px); filter: drop-shadow(0 24px 40px rgba(0,0,0,0.45)); }
+.cname { position: relative; z-index: 1; font-family: "Cormorant Garamond",serif; font-size: 19px; font-weight: 500; color: var(--maroon); margin-bottom: 10px; transition: color 0.4s; }
+.cdesc { position: relative; z-index: 1; font-family: "Montserrat",sans-serif; font-size: 12px; line-height: 1.75; font-weight: 400; color: #4A2030; transition: color 0.4s; margin-bottom: 18px; }
+.ctag { position: relative; z-index: 1; display: inline-block; font-size: 8px; letter-spacing: 3px; text-transform: uppercase; border: 1px solid var(--gold); color: var(--gold); padding: 6px 16px; font-family: "Montserrat",sans-serif; transition: all 0.4s; border-radius: 20px; }
+
+/* HAIR */
+.hair-wrap { background: linear-gradient(180deg, var(--warm-white) 0%, var(--cream) 100%); padding: 80px 0 100px; }
+.hair-intro { text-align: center; padding: 0 60px 70px; }
+.hair-quote { font-family: "Cormorant Garamond",serif; font-size: clamp(20px,2.5vw,30px); font-style: italic; font-weight: 400; color: var(--maroon); line-height: 1.6; max-width: 680px; margin: 22px auto 0; }
+.hgrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; max-width: 1120px; margin: 0 auto; padding: 0 40px; }
+.hcard { position: relative; overflow: hidden; aspect-ratio: 3/4; cursor: none; border-radius: 14px; }
+.hcard::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(90,18,32,0.92) 0%, rgba(90,18,32,0.1) 55%, transparent 100%); opacity: 0.65; transition: opacity 0.4s; }
+.hcard:hover::after { opacity: 0.88; }
+.himg { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(.23,1,.32,1); }
+.hcard:hover .himg { transform: scale(1.09); }
+.hinfo { position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 26px 22px; transform: translateY(6px); transition: transform 0.4s; }
+.hcard:hover .hinfo { transform: translateY(0); }
+.hnum { font-family: "Montserrat",sans-serif; font-size: 8px; letter-spacing: 4px; color: var(--gold); margin-bottom: 5px; display: block; }
+.hname { font-family: "Cormorant Garamond",serif; font-size: 22px; font-weight: 400; color: white; margin-bottom: 8px; }
+.hdetail { font-family: "Montserrat",sans-serif; font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.85); letter-spacing: 2px; text-transform: uppercase; opacity: 0; transform: translateY(8px); transition: all 0.4s ease 0.1s; }
+.hcard:hover .hdetail { opacity: 1; transform: translateY(0); }
+.hbadges { display: flex; gap: 20px; justify-content: center; margin-top: 56px; flex-wrap: wrap; padding: 0 40px; }
+.hbadge { display: flex; align-items: center; gap: 10px; font-family: "Montserrat",sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--maroon); font-weight: 500; }
+.hbadge-icon { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-light), var(--gold)); display: flex; align-items: center; justify-content: center; font-size: 15px; }
+
+/* CONTACT */
+#contact { background: linear-gradient(135deg, var(--maroon) 0%, #18040C 100%); padding: 110px 60px; position: relative; overflow: hidden; }
+#contact::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(-45deg, rgba(198,161,91,0.04) 0, rgba(198,161,91,0.04) 1px, transparent 0, transparent 50%); background-size: 28px 28px; }
+.cont-inner { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1; }
+.cont-title { font-family: "Cormorant Garamond",serif; font-size: clamp(42px,5vw,70px); font-weight: 300; color: white; line-height: 1.1; margin-bottom: 22px; }
+.cont-sub { font-family: "Montserrat",sans-serif; font-size: 14px; line-height: 1.85; font-weight: 400; color: rgba(255,255,255,0.78); margin-bottom: 36px; }
+.cont-logo { height: 76px; width: auto; filter: drop-shadow(0 4px 20px rgba(198,161,91,0.5)); }
+.cont-details { display: flex; flex-direction: column; gap: 26px; }
+.cont-item { display: flex; align-items: flex-start; gap: 16px; padding: 16px; padding-bottom: 26px; border-bottom: 1px solid rgba(198,161,91,0.12); border-radius: 10px; }
+.cont-item:last-child { border-bottom: none; }
+.cont-icon { width: 42px; height: 42px; flex-shrink: 0; border: 1px solid rgba(198,161,91,0.35); display: flex; align-items: center; justify-content: center; font-size: 17px; transition: all 0.3s; border-radius: 8px; }
+.cont-item:hover .cont-icon { background: var(--gold); border-color: var(--gold); }
+.cont-lbl { font-family: "Montserrat",sans-serif; font-size: 8px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; display: block; }
+.cont-val { font-family: "Montserrat",sans-serif; font-size: 15px; font-weight: 400; color: rgba(255,255,255,0.9); }
+.socials { display: flex; gap: 10px; margin-top: 6px; }
+.sbtn { width: 42px; height: 42px; border: 1px solid rgba(198,161,91,0.35); display: flex; align-items: center; justify-content: center; text-decoration: none; color: var(--gold); font-size: 14px; font-family: "Montserrat",sans-serif; font-weight: 700; transition: all 0.3s; border-radius: 8px; }
+.sbtn:hover { background: var(--gold); color: var(--maroon); transform: translateY(-4px); box-shadow: 0 10px 28px rgba(198,161,91,0.35); }
+
+/* FOOTER */
+footer { background: #100208; padding: 30px 60px; display: flex; align-items: center; justify-content: space-between; }
+.fcopy { font-family: "Montserrat",sans-serif; font-size: 9px; letter-spacing: 2px; color: rgba(255,255,255,0.5); text-transform: uppercase; }
+.ftag { font-family: "Cormorant Garamond",serif; font-size: 15px; font-style: italic; color: var(--gold); opacity: 0.65; }
+
+/* REVEAL */
+.rv { opacity: 0; transform: translateY(44px); transition: opacity 0.9s cubic-bezier(.23,1,.32,1), transform 0.9s cubic-bezier(.23,1,.32,1); }
+.rv.in { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; } .d3 { transition-delay: 0.3s; } .d4 { transition-delay: 0.4s; } .d5 { transition-delay: 0.5s; }
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-links">
+      <a href="#hero">Home</a>
+      <a href="#about">About Us</a>
+    </div>
+    <img src="images/image_001.png" alt="VELVEX" class="nav-logo">
+    <div class="nav-links">
+      <a href="#products">Products</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <video id="hero-video" autoplay muted loop playsinline>
+    <source src="videos/video_001.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <img src="images/image_002.png" alt="VELVEX" class="hero-logo">
+    <p class="hero-tagline">Live Vibrant &middot; Bold &middot; Smart</p>
+    <h1 class="hero-headline">Designed for<br><em>Confidence.</em></h1>
+    <div class="hero-pills">
+      <span class="hero-pill">Luxury</span>
+      <span class="hero-pill">Intimacy</span>
+      <span class="hero-pill">Confidence</span>
+    </div>
+    <a href="#products" class="hero-cta"><span>Explore Collection &rarr;</span></a>
+  </div>
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-sticky">
+    <div class="about-bg p0" id="abg"></div>
+    <div class="about-texture"></div>
+    <div class="about-vline"></div>
+    <div class="about-phase active" id="ap0">
+      <div style="text-align:center;max-width:800px">
+        <span class="about-eyebrow">Our Story</span>
+        <h2 class="about-headline" style="color:var(--text-dark)">We are<br><em style="color:var(--maroon);font-style:italic">VELVEX.</em></h2>
+        <p class="about-body" style="color:var(--text-mid)">A modern brand dedicated to personal care, hygiene and wellness &mdash; the two essentials of a confident life: <strong>Vibrant Hair Color</strong> and <strong>Premium Sexual Wellness</strong>.</p>
+        <div class="about-tags">
+          <span class="about-tag" style="color:var(--maroon);border-color:var(--maroon)">Bold</span>
+          <span class="about-tag" style="color:var(--maroon);border-color:var(--maroon)">Sophisticated</span>
+          <span class="about-tag" style="color:var(--maroon);border-color:var(--maroon)">Premium</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-phase" id="ap1">
+      <div style="text-align:center;max-width:800px">
+        <span class="about-eyebrow" style="color:var(--gold-light)">Our Promise</span>
+        <h2 class="about-headline" style="color:white">Confidence Begins<br><em style="color:var(--gold-light);font-style:italic">With Comfort.</em></h2>
+        <p class="about-body" style="color:rgba(255,255,255,0.78)">We believe self-expression and safety go hand-in-hand. Our name embodies our promise: a velvety smooth experience &mdash; whether it is the rich texture of your hair or the seamless protection you trust.</p>
+        <div class="about-tags">
+          <span class="about-tag" style="color:var(--gold-light);border-color:rgba(198,161,91,0.5)">Modern</span>
+          <span class="about-tag" style="color:var(--gold-light);border-color:rgba(198,161,91,0.5)">Sensual</span>
+          <span class="about-tag" style="color:var(--gold-light);border-color:rgba(198,161,91,0.5)">Refined</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-phase" id="ap2">
+      <div style="text-align:center;max-width:800px">
+        <span class="about-eyebrow" style="color:var(--gold)">What We Deliver</span>
+        <h2 class="about-headline" style="color:white">Every Moment.<br><em style="color:var(--gold);font-style:italic">Every You.</em></h2>
+        <p class="about-body" style="color:rgba(255,255,255,0.75)">We exist to help you look good for the night out, and stay safe when the night winds down. Two product lines. One unwavering standard of luxury.</p>
+        <div class="about-tags">
+          <span class="about-tag" style="color:var(--gold);border-color:rgba(198,161,91,0.4)">&nbsp;&#127912;&nbsp; Color That Cares</span>
+          <span class="about-tag" style="color:var(--gold);border-color:rgba(198,161,91,0.4)">&nbsp;&#128737;&nbsp; Protection You Feel</span>
+        </div>
+      </div>
+    </div>
+    <div class="phase-dots">
+      <div class="pdot active" id="pd0"></div>
+      <div class="pdot" id="pd1"></div>
+      <div class="pdot" id="pd2"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="prod-header rv">
+    <span class="sec-label">Our Collections</span>
+    <h2 class="sec-title">Premium Protection.<br><em>Vibrant Expression.</em></h2>
+    <p class="sec-sub">Two distinct lines, one unified philosophy &mdash; quality you feel, confidence you wear.</p>
+  </div>
+  <div class="ptabs">
+    <button class="ptab on" onclick="switchTab('cond',this)">Premium Condoms</button>
+    <button class="ptab" onclick="switchTab('hair',this)">Vibrant Color Cream</button>
+  </div>
+
+  <!-- CONDOMS -->
+  <div class="tcontent on" id="tc-cond">
+    <div class="cond-intro rv">
+      <span class="cond-label">Feel Everything. Fear Nothing.</span>
+      <p class="sec-sub" style="margin:0 auto">Engineered for those who demand closeness without compromise. Ultra-thin latex, finished with our signature silky lubricant for a natural, frictionless experience.</p>
+    </div>
+    <div class="cond-grid">
+      <div class="ccard rv">
+        <div class="cimg-wrap"><img src="images/image_003.png" class="cimg" alt="Zero Thin"></div>
+        <div class="cname">Zero Thin</div>
+        <div class="cdesc">Ultra-thin latex for a barely-there skin-to-skin sensation that feels completely natural.</div>
+        <span class="ctag">Signature</span>
+      </div>
+      <div class="ccard rv d1">
+        <div class="cimg-wrap"><img src="images/image_004.png" class="cimg" alt="Extra Time PowerShot"></div>
+        <div class="cname">Extra Time PowerShot</div>
+        <div class="cdesc">Take control and last longer with performance-enhanced delay lubricant for ultimate endurance.</div>
+        <span class="ctag">Performance</span>
+      </div>
+      <div class="ccard rv d2">
+        <div class="cimg-wrap"><img src="images/image_005.png" class="cimg" alt="Classic"></div>
+        <div class="cname">Classic</div>
+        <div class="cdesc">Smooth, comfortable and reliable &mdash; the essential for everyday confidence, redefined.</div>
+        <span class="ctag">Essential</span>
+      </div>
+      <div class="ccard rv d3">
+        <div class="cimg-wrap"><img src="images/image_006.png" class="cimg" alt="Assorted Flavours"></div>
+        <div class="cname">Assorted Flavours</div>
+        <div class="cdesc">A playful mix of delicious tastes and scents to add a flavorful twist to every moment.</div>
+        <span class="ctag">Playful</span>
+      </div>
+      <div class="ccard rv d4">
+        <div class="cimg-wrap"><img src="images/image_007.png" class="cimg" alt="Super Studded"></div>
+        <div class="cname">Super Studded</div>
+        <div class="cdesc">Strategically textured with raised dots to intensify friction and amplify every sensation.</div>
+        <span class="ctag">Intensity</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HAIR -->
+  <div class="tcontent" id="tc-hair">
+    <div class="hair-wrap">
+      <div class="hair-intro rv">
+        <span class="sec-label">Vibrant Color Cream</span>
+        <h2 class="sec-title">Wear Your Vibe.<br><em>Feel the Velvet.</em></h2>
+        <p class="hair-quote">"Set the scene. Black for the after-party, Sun-Kissed Blonde for the weekend, Wine Red for the date night."</p>
+        <p class="sec-sub" style="margin-top:18px">100% Vegan &nbsp;&middot;&nbsp; No Ammonia &nbsp;&middot;&nbsp; No Paraben &nbsp;&middot;&nbsp; Organic Herbs &nbsp;&middot;&nbsp; Velvet-Lock Technology</p>
+      </div>
+      <div class="hgrid">
+        <div class="hcard rv"><img src="images/image_008.png" class="himg" alt="Natural Black"><div class="hinfo"><span class="hnum">01</span><div class="hname">Natural Black</div><div class="hdetail">Rich &middot; Deep &middot; Timeless</div></div></div>
+        <div class="hcard rv d1"><img src="images/image_009.png" class="himg" alt="Wine Red"><div class="hinfo"><span class="hnum">4.64</span><div class="hname">Wine Red</div><div class="hdetail">Bold &middot; Passionate &middot; Sultry</div></div></div>
+        <div class="hcard rv d2"><img src="images/image_010.png" class="himg" alt="Light Brown"><div class="hinfo"><span class="hnum">03</span><div class="hname">Light Brown</div><div class="hdetail">Warm &middot; Natural &middot; Effortless</div></div></div>
+        <div class="hcard rv d1"><img src="images/image_011.png" class="himg" alt="Dark Blonde"><div class="hinfo"><span class="hnum">6.1</span><div class="hname">Dark Blonde</div><div class="hdetail">Sun-Kissed &middot; Radiant &middot; Chic</div></div></div>
+        <div class="hcard rv d2"><img src="images/image_012.png" class="himg" alt="Caramel Brown"><div class="hinfo"><span class="hnum">7.7</span><div class="hname">Caramel Brown</div><div class="hdetail">Golden &middot; Sweet &middot; Luxurious</div></div></div>
+        <div class="hcard rv d3"><img src="images/image_013.png" class="himg" alt="Pink Pearl"><div class="hinfo"><span class="hnum">9.2P</span><div class="hname">Pink Pearl</div><div class="hdetail">Dreamy &middot; Feminine &middot; Daring</div></div></div>
+        <div class="hcard rv"><img src="images/image_014.png" class="himg" alt="Ash Blonde"><div class="hinfo"><span class="hnum">9.1</span><div class="hname">Ash Blonde</div><div class="hdetail">Cool &middot; Sophisticated &middot; Modern</div></div></div>
+        <div class="hcard rv d1"><img src="images/image_015.png" class="himg" alt="Honey Glow"><div class="hinfo"><span class="hnum">9.3H</span><div class="hname">Honey Glow</div><div class="hdetail">Amber &middot; Vibrant &middot; Glowing</div></div></div>
+        <div class="hcard rv d2"><img src="images/image_016.png" class="himg" alt="Glossy Beige"><div class="hinfo"><span class="hnum">10.21B</span><div class="hname">Glossy Beige</div><div class="hdetail">Luminous &middot; Elegant &middot; Fresh</div></div></div>
+      </div>
+      <div class="hbadges rv" style="margin-top:56px">
+        <div class="hbadge"><div class="hbadge-icon">&#127807;</div><span>100% Vegan</span></div>
+        <div class="hbadge"><div class="hbadge-icon">&#10024;</div><span>Velvet-Lock Tech</span></div>
+        <div class="hbadge"><div class="hbadge-icon">&#128683;</div><span>No Ammonia</span></div>
+        <div class="hbadge"><div class="hbadge-icon">&#127807;</div><span>Organic Herbs</span></div>
+        <div class="hbadge"><div class="hbadge-icon">&#128167;</div><span>No Paraben</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="cont-inner">
+    <div class="rv">
+      <span class="sec-label" style="color:var(--gold-light)">Let's Connect</span>
+      <h2 class="cont-title">Find Us<br>in Dubai.</h2>
+      <p class="cont-sub">We're always here to help you live vibrant, bold, and smart. Reach out through any of the channels below.</p>
+      <img src="images/image_017.png" alt="VELVEX" class="cont-logo">
+    </div>
+    <div class="cont-details rv d2">
+      <div class="cont-item">
+        <div class="cont-icon">&#128205;</div>
+        <div><span class="cont-lbl">Address</span><div class="cont-val">Dubai, UAE</div></div>
+      </div>
+      <div class="cont-item">
+        <div class="cont-icon">&#9993;</div>
+        <div><span class="cont-lbl">Email</span><div class="cont-val">info@velvex.ae</div></div>
+      </div>
+      <div class="cont-item">
+        <div class="cont-icon">&#128222;</div>
+        <div><span class="cont-lbl">Call</span><div class="cont-val">+971 50 123 4567</div></div>
+      </div>
+      <div class="cont-item">
+        <div class="cont-icon">&#127760;</div>
+        <div>
+          <span class="cont-lbl">Connect</span>
+          <div class="socials">
+            <a href="#" class="sbtn">f</a>
+            <a href="#" class="sbtn">in</a>
+            <a href="#" class="sbtn">&#9654;</a>
+            <a href="#" class="sbtn">&#9835;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="fcopy">&copy; 2026 VELVEX. All Rights Reserved.</span>
+  <span class="ftag">Live Vibrant. Bold. Smart.</span>
+  <span class="fcopy">Velvex.ae</span>
+</footer>
+
+<script>
+// CURSOR
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0, my=0, rx=0, ry=0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cur.style.left = mx+'px'; cur.style.top = my+'px';
+});
+(function animRing(){
+  rx += (mx-rx)*0.11; ry += (my-ry)*0.11;
+  ring.style.left = rx+'px'; ring.style.top = ry+'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.ccard,.hcard').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
+});
+
+// NAV
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
+
+// ABOUT SCROLL
+const aboutSec = document.getElementById('about');
+let curPhase = 0;
+const bgClasses = ['p0','p1','p2'];
+function setPhase(p){
+  if(p===curPhase) return;
+  curPhase = p;
+  const abg = document.getElementById('abg');
+  abg.className = 'about-bg ' + bgClasses[p];
+  [0,1,2].forEach(i=>{
+    document.getElementById('ap'+i).classList.toggle('active', i===p);
+    document.getElementById('pd'+i).classList.toggle('active', i===p);
+  });
+}
+window.addEventListener('scroll',()=>{
+  const rect = aboutSec.getBoundingClientRect();
+  const total = aboutSec.offsetHeight - window.innerHeight;
+  const scrolled = -rect.top;
+  const prog = Math.max(0,Math.min(1,scrolled/total));
+  setPhase(Math.min(2,Math.floor(prog*3)));
+});
+
+// SCROLL REVEAL
+const rvEls = document.querySelectorAll('.rv');
+const rvObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+},{threshold:0.12});
+rvEls.forEach(el=>rvObs.observe(el));
+
+// TABS
+function switchTab(id, btn){
+  document.querySelectorAll('.tcontent').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('tc-'+id).classList.add('on');
+  btn.classList.add('on');
+  document.querySelectorAll('#tc-'+id+' .rv').forEach(el=>{
+    el.classList.remove('in');
+    setTimeout(()=>rvObs.observe(el),50);
+  });
+}
+
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t) t.scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
